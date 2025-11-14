@@ -1,0 +1,18 @@
+<svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0c4a6e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#7c3aed;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#db2777;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#grad3)"/>
+  <circle cx="1600" cy="250" r="120" fill="#fbbf24" opacity="0.2" stroke="#fbbf24" stroke-width="3" opacity="0.3"/>
+  <circle cx="1600" cy="250" r="90" fill="none" stroke="#fbbf24" stroke-width="2" opacity="0.25"/>
+  <circle cx="1600" cy="250" r="60" fill="none" stroke="#fbbf24" stroke-width="2" opacity="0.2"/>
+  <path d="M 1400 700 L 1420 740 L 1465 746 L 1430 778 L 1440 823 L 1400 800 L 1360 823 L 1370 778 L 1335 746 L 1380 740 Z" fill="#fbbf24" opacity="0.3"/>
+  <path d="M 1700 600 L 1715 630 L 1748 635 L 1722 659 L 1730 693 L 1700 676 L 1670 693 L 1678 659 L 1652 635 L 1685 630 Z" fill="#fbbf24" opacity="0.25"/>
+  <text x="960" y="540" font-family="Arial, sans-serif" font-size="72" fill="white" opacity="0.1" text-anchor="middle" font-weight="bold">🌟 Daily Horoscope 🌟</text>
+</svg>
+
+

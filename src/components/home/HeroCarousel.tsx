@@ -1,0 +1,221 @@
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+interface Slide {
+  id: number;
+  image: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  ctaText: string;
+  ctaLink: string;
+}
+
+const slides: Slide[] = [
+  {
+    id: 1,
+    image: "/hero-slide-1.svg", // Replace with .jpg when you have actual images
+    title: "Discover Your Cosmic Destiny",
+    subtitle: "Ancient Vedic Wisdom",
+    description: "Get personalized birth charts, horoscopes, and astrological insights to guide your life's journey through the stars.",
+    ctaText: "Get Free Kundli",
+    ctaLink: "/kundli",
+  },
+  {
+    id: 2,
+    image: "/hero-slide-2.svg", // Replace with .jpg when you have actual images
+    title: "Find Your Perfect Match",
+    subtitle: "Kundli Matching",
+    description: "Discover compatibility with comprehensive Kundli matching. Check Guna Milan, Manglik Dosha, and detailed marriage predictions.",
+    ctaText: "Match Kundli",
+    ctaLink: "/matchmaking",
+  },
+  {
+    id: 3,
+    image: "/hero-slide-3.svg", // Replace with .jpg when you have actual images
+    title: "Daily Horoscope Predictions",
+    subtitle: "Plan Your Day",
+    description: "Receive personalized daily predictions for all zodiac signs. Plan your day with cosmic guidance and celestial insights.",
+    ctaText: "Read Horoscope",
+    ctaLink: "/horoscope",
+  },
+];
+
+export default function HeroCarousel() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  }, []);
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+    setIsAutoPlaying(false);
+  };
+
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, nextSlide]);
+
+  return (
+    <section className="relative w-full h-[600px] md:h-[700px] lg:h-[800px] overflow-hidden">
+      {/* Slides */}
+      <div className="relative w-full h-full">
+        {slides.map((slide, index) => (
+          <div
+            key={slide.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+            }`}
+          >
+            {/* Background Image */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent z-10" />
+            <Image
+              src={slide.image}
+              alt={slide.title}
+              fill
+              priority={index === 0}
+              className="object-cover"
+              sizes="100vw"
+            />
+
+            {/* Content - Left Aligned */}
+            <div className="relative z-20 h-full flex items-center">
+              <div className="container mx-auto px-6 lg:px-8 max-w-7xl">
+                <div className="max-w-2xl">
+                  {/* Subtitle */}
+                  <div className="inline-block mb-4 px-4 py-2 bg-[#FF7B60]/90 rounded-full backdrop-blur-sm">
+                    <span className="text-white text-sm font-semibold">
+                      {slide.subtitle}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-2xl">
+                    {slide.title}
+                  </h1>
+
+                  {/* Description */}
+                  <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed drop-shadow-lg">
+                    {slide.description}
+                  </p>
+
+                  {/* CTA Button */}
+                  <Link
+                    href={slide.ctaLink}
+                    className="inline-block px-8 py-4 bg-[#FF7B60] text-white font-semibold rounded-full shadow-2xl hover:shadow-[#FF7B60]/50 hover:bg-[#ff6a4d] transition-all transform hover:scale-105"
+                  >
+                    {slide.ctaText}
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Navigation Arrows */}
+      <button
+        onClick={() => {
+          prevSlide();
+          setIsAutoPlaying(false);
+        }}
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white p-3 md:p-4 rounded-full transition-all shadow-lg group"
+        aria-label="Previous slide"
+      >
+        <svg
+          className="w-5 h-5 md:w-6 md:h-6 transform group-hover:scale-110 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+
+      <button
+        onClick={() => {
+          nextSlide();
+          setIsAutoPlaying(false);
+        }}
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white p-3 md:p-4 rounded-full transition-all shadow-lg group"
+        aria-label="Next slide"
+      >
+        <svg
+          className="w-5 h-5 md:w-6 md:h-6 transform group-hover:scale-110 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
+
+      {/* Indicator Dots */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-3">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`transition-all ${
+              index === currentSlide
+                ? "w-12 bg-[#FF7B60]"
+                : "w-3 bg-white/50 hover:bg-white/80"
+            } h-3 rounded-full`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+
+      {/* Play/Pause Button */}
+      <button
+        onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+        className="absolute bottom-8 right-8 z-30 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white p-3 rounded-full transition-all shadow-lg"
+        aria-label={isAutoPlaying ? "Pause autoplay" : "Play autoplay"}
+      >
+        {isAutoPlaying ? (
+          <svg
+            className="w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+          </svg>
+        ) : (
+          <svg
+            className="w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        )}
+      </button>
+    </section>
+  );
+}
+
