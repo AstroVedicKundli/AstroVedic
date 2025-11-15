@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function Header() {
@@ -11,8 +12,8 @@ export default function Header() {
     { name: "Kundli", href: "/kundli" },
     { name: "Horoscope", href: "/horoscope" },
     { name: "Services", href: "/services" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
+    { name: "Yatra", href: "/yatra" },
+    { name: "Puja", href: "/puja" },
   ];
 
   return (
@@ -21,11 +22,16 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex lg:flex-1">
-            <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
-              <div className="text-3xl">✨</div>
-              <span className="text-xl font-bold text-[#333355]">
-                Astro Vedic Kundli
-              </span>
+            <Link href="/" className="-m-1.5 p-1.5">
+              <Image
+                src="/logo_transparent.png"
+                alt="Astro Vedic Kundli"
+                width={150}
+                height={40}
+                className="h-10 w-auto object-contain"
+                priority
+                unoptimized
+              />
             </Link>
           </div>
 
