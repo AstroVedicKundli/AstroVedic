@@ -17,18 +17,18 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#FCF3E4]/95 backdrop-blur-md border-b border-[#333355]/10 shadow-sm">
-      <nav className="mx-auto max-w-7xl px-6 lg:px-8" aria-label="Top">
-        <div className="flex h-16 items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 lg:px-8 pt-4">
+      <nav className="mx-auto max-w-7xl bg-[#fefbf6] rounded-3xl shadow-lg overflow-hidden" aria-label="Top">
+        <div className="flex h-16 items-center justify-between px-4 md:px-6 lg:px-8">
           {/* Logo */}
           <div className="flex lg:flex-1">
             <Link href="/" className="-m-1.5 p-1.5">
               <Image
                 src="/logo_transparent.png"
                 alt="Astro Vedic Kundli"
-                width={150}
-                height={40}
-                className="h-10 w-auto object-contain"
+                width={120}
+                height={32}
+                className="h-8 w-auto object-contain"
                 priority
                 unoptimized
               />
@@ -52,9 +52,9 @@ export default function Header() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <Link
               href="/kundli"
-              className="rounded-full bg-[#FF7B60] px-5 py-2 text-sm font-semibold text-white shadow-md hover:shadow-lg hover:bg-[#ff6a4d] transition-all"
+              className="rounded-full bg-[#333355] px-6 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-[#2a2a45] transition-all"
             >
-              Get Your Kundli
+              Login/Identificarse
             </Link>
           </div>
 
@@ -65,7 +65,9 @@ export default function Header() {
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[#333355]"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only">
+                {mobileMenuOpen ? "Close menu" : "Open menu"}
+              </span>
               <svg
                 className="h-6 w-6"
                 fill="none"
@@ -92,31 +94,59 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden">
-            <div className="space-y-2 pb-3 pt-2">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-[#333355] hover:bg-[#333355]/5"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+        {/* Mobile menu - Expandable dropdown with animation */}
+        <div
+          className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+            mobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="px-4 pb-6 pt-2 space-y-1 border-t border-[#333355]/10">
+            {navigation.map((item, index) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="block rounded-lg px-4 py-3 text-base font-semibold text-[#333355] hover:bg-[#333355]/5 transition-all"
+                onClick={() => setMobileMenuOpen(false)}
+                style={{
+                  animation: mobileMenuOpen
+                    ? `slideIn 0.3s ease-out ${index * 0.05}s both`
+                    : "none",
+                }}
+              >
+                {item.name}
+              </Link>
+            ))}
+            <div className="pt-4">
               <Link
                 href="/kundli"
-                className="block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white bg-[#FF7B60] hover:bg-[#ff6a4d]"
+                className="block w-full rounded-full px-4 py-3 text-center text-base font-bold text-white bg-[#333355] hover:bg-[#2a2a45] transition-all shadow-md"
                 onClick={() => setMobileMenuOpen(false)}
+                style={{
+                  animation: mobileMenuOpen
+                    ? `slideIn 0.3s ease-out ${navigation.length * 0.05}s both`
+                    : "none",
+                }}
               >
-                Get Your Kundli
+                Login/Identificarse
               </Link>
             </div>
           </div>
-        )}
+        </div>
       </nav>
+
+      {/* Add keyframe animation */}
+      <style jsx>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </header>
   );
 }

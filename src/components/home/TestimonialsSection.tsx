@@ -169,13 +169,8 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section className="py-16 px-6 md:px-8 lg:px-12 bg-[#FCF3E4]">
+    <section className="py-16 px-6 md:px-8 lg:px-12 bg-white">
       <div className="max-w-7xl mx-auto">
-        {/* Quote Mark */}
-        <div className="text-4xl md:text-6xl text-[#333355]/20 font-serif mb-4">
-          &ldquo;
-        </div>
-
         {/* Section Heading */}
         <div className="mb-8 md:mb-10">
           <h2 className="text-xl md:text-3xl lg:text-4xl font-bold text-[#333355] mb-3 md:mb-4">
@@ -209,10 +204,14 @@ export default function TestimonialsSection() {
               transition: isDragging ? "none" : "transform 0.3s ease-out",
             }}
           >
-            {testimonials.map((testimonial) => (
+            {testimonials.map((testimonial, index) => (
               <div
                 key={testimonial.id}
-                className="bg-gradient-to-br from-[#2B2D42] to-[#1a1b2e] rounded-2xl p-6 md:p-8 text-white shadow-xl min-h-[240px] md:min-h-[280px] flex flex-col justify-between flex-shrink-0"
+                className={`rounded-2xl p-6 md:p-8 shadow-xl min-h-[240px] md:min-h-[280px] flex flex-col justify-between flex-shrink-0 ${
+                  index === 0
+                    ? "bg-gradient-to-br from-[#2B2D42] to-[#1a1b2e] text-white"
+                    : "bg-[#F5F5F5] text-[#333355]"
+                }`}
                 style={{
                   width: `calc((100% - ${
                     (cardsPerView - 1) * 24
@@ -234,7 +233,13 @@ export default function TestimonialsSection() {
                     <p className="font-bold text-sm md:text-base">
                       {testimonial.name}
                     </p>
-                    <p className="text-xs text-white/70">{testimonial.title}</p>
+                    <p
+                      className={`text-xs ${
+                        index === 0 ? "text-white/70" : "text-[#333355]/60"
+                      }`}
+                    >
+                      {testimonial.title}
+                    </p>
                   </div>
                 </div>
               </div>

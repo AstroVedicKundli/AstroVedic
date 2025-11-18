@@ -31,64 +31,91 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-16 px-6 md:px-8 lg:px-12 bg-[#FCF3E4]">
-      <div className="max-w-4xl mx-auto">
-        {/* Section Heading */}
-        <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#8B4513] mb-3">
-            FAQ's
-          </h2>
-          <div className="w-20 h-1 bg-[#FF7B60] mx-auto rounded-full"></div>
-        </div>
-
-        {/* FAQ Accordion */}
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <div
-              key={faq.id}
-              className="bg-white rounded-xl shadow-md border border-[#8B4513]/20 overflow-hidden transition-all duration-300"
-            >
-              {/* Question Button */}
-              <button
-                onClick={() => toggleAccordion(index)}
-                className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-[#FCF3E4]/50 transition-colors"
+    <section className="py-16 px-6 md:px-8 lg:px-12 bg-white">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Left Column - Heading */}
+          <div className="lg:sticky lg:top-32">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <svg
+                className="w-5 h-5 text-[#8B4414]"
+                fill="currentColor"
+                viewBox="0 0 20 20"
               >
-                <span className="text-base md:text-lg font-semibold text-[#8B4513] pr-4">
-                  {faq.question}
-                </span>
-                <svg
-                  className={`w-5 h-5 text-[#8B4513] flex-shrink-0 transition-transform duration-300 ${
-                    openIndex === index ? "rotate-180" : ""
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <span className="text-sm font-semibold text-[#8B4414] uppercase tracking-wide">
+                Frequently asked questions
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#333355] mb-4">
+              Frequently asked{" "}
+              <span className="text-[#8B4414]">questions</span>
+            </h2>
+            <p className="text-base text-[#333355]/70 leading-relaxed">
+              Get answers to common questions about our astrology services,
+              consultations, and courses. We're here to guide you on your
+              spiritual journey.
+            </p>
+          </div>
 
-              {/* Answer Content */}
+          {/* Right Column - FAQ Accordion */}
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
               <div
-                className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                  openIndex === index
-                    ? "max-h-96 opacity-100"
-                    : "max-h-0 opacity-0"
-                }`}
+                key={faq.id}
+                className="bg-gray-50 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md"
               >
-                <div className="px-6 pb-5 pt-2">
-                  <p className="text-sm md:text-base text-[#333355]/80 leading-relaxed">
-                    {faq.answer}
-                  </p>
+                {/* Question Button */}
+                <button
+                  onClick={() => toggleAccordion(index)}
+                  className="w-full px-6 py-5 text-left flex items-start justify-between gap-4 transition-colors"
+                >
+                  <span className="text-base md:text-lg font-semibold text-[#333355] flex-1">
+                    {faq.question}
+                  </span>
+                  <div
+                    className={`flex-shrink-0 w-8 h-8 rounded-full bg-[#8B4414] flex items-center justify-center transition-transform duration-300 ${
+                      openIndex === index ? "rotate-180" : ""
+                    }`}
+                  >
+                    <svg
+                      className="w-5 h-5 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </button>
+
+                {/* Answer Content */}
+                <div
+                  className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                    openIndex === index
+                      ? "max-h-96 opacity-100"
+                      : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <div className="px-6 pb-5 pt-0">
+                    <p className="text-sm md:text-base text-[#333355]/70 leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

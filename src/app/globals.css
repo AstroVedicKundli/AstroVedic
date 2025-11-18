@@ -27,3 +27,13 @@ body {
   color: var(--foreground);
   font-family: var(--font-montserrat), system-ui, -apple-system, sans-serif;
 }
+
+/* Hide scrollbar for horizontal scroll containers */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
